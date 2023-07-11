@@ -1,11 +1,16 @@
 package com.lexi.vlogapp.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "hashtags")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Hashtag {
 
     @Id

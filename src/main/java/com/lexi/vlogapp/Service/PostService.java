@@ -1,8 +1,8 @@
 package com.lexi.vlogapp.Service;
 
-import com.lexi.vlogapp.dao.PostDao;
+import com.lexi.vlogapp.dao.hibernateDao.PostDao;
 import com.lexi.vlogapp.entity.Post;
-import com.lexi.vlogapp.repository.PostRepository;
+import com.lexi.vlogapp.dao.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,4 +45,15 @@ public class PostService implements PostDao {
     public boolean deleteById(Long aLong) {
         return false;
     }
+
+    @Override
+    public Integer getLikeCount(Long id) {
+        return null;
+    }
+
+    @Override
+    public Post findByPostContentContaining(String keyword) {
+        return null;
+    }
+
 }

@@ -1,10 +1,15 @@
 package com.lexi.vlogapp.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.sql.Timestamp;
 import java.util.Set;
 import javax.persistence.*;
 @Entity
 @Table(name = "likes")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Like {
 
     @Id

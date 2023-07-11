@@ -1,12 +1,17 @@
 package com.lexi.vlogapp.entity;
 
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -27,7 +32,7 @@ public class User {
     private String avatar;
 
     // mappedBy is to find the corresponding java variable
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Post> posts;
 
     @ManyToMany
@@ -35,8 +40,11 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<Like> likes;
+
+    @Column(name = "user_beliked", columnDefinition = "bigint default 0", insertable = false)
+    private Long likeNum;
 
     ///////////////////////////// Getter & Setter //////////////////////////////
     public Long getId() {
@@ -72,11 +80,34 @@ public class User {
     }
 
     public Set<Post> getPosts() {
+        if (this.posts == null) this.posts = new HashSet<>();
         return posts;
     }
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+        for (Post post : posts) {post.setUser(this);}
+    }
+
+    public void addPost(Post post) {
+        this.getPosts().add(post);
+        post.setUser(this);
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Long getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(Long likeNum) {
+        this.likeNum = likeNum;
     }
 
     public Set<Role> getRoles() {
@@ -94,6 +125,8 @@ public class User {
     public void setLikes(Set<Like> likes) {
         this.likes = likes;
     }
+
+
 
     //////////////////////////// To String ///////////////////////////////////////
     @Override

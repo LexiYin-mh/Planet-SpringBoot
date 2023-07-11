@@ -8,16 +8,16 @@ VALUES
     ('User', '/', true, true, true, false);
 
 -- Insert statements for users
-INSERT INTO users (user_email, user_name, user_password, user_avatar)
+INSERT INTO users (user_email, user_name, user_password, user_avatar, user_beliked)
 VALUES
-    ('unknownuser@dev.com', 'Unknown User', 'pwdunknownuser', 'path/to/profile-pic1.jpg'),
-    ('johnsmith@gmail.com', 'John Smith', 'pwdjohnsmith', 'path/to/profile-pic2.jpg'),
-    ('emmajohnson@gmail.com', 'Emma Johnson', 'pwdemmajohnson', 'path/to/profile-pic3.jpg'),
-    ('michaelwilliams@gmail.com', 'Michael Williams', 'pwdmichaelwilliams', 'path/to/profile-pic4.jpg'),
-    ('oliviabrown@gmail.com', 'Olivia Brown', 'pwdoliviabrown', 'path/to/profile-pic5.jpg'),
-    ('lexiyin@gmail.com', 'Lexi Yin', 'pwdlexiyin', 'path/to/profile-pic6.jpg'),
-    ('alexstanton@gmail.com', 'Alex Stanton', 'pwdalexstanton', 'path/to/profile-pic7.jpg'),
-    ('jeffintrone@gmail.com', 'Jeff Introne', 'pwdjeffintrone', 'path/to/profile-pic8.jpg');
+    ('unknownuser@dev.com', 'Unknown User', 'pwdunknownuser', 'path/to/profile-pic1.jpg', 0),
+    ('johnsmith@gmail.com', 'John Smith', 'pwdjohnsmith', 'path/to/profile-pic2.jpg', 0),
+    ('emmajohnson@gmail.com', 'Emma Johnson', 'pwdemmajohnson', 'path/to/profile-pic3.jpg', 0),
+    ('michaelwilliams@gmail.com', 'Michael Williams', 'pwdmichaelwilliams', 'path/to/profile-pic4.jpg', 0),
+    ('oliviabrown@gmail.com', 'Olivia Brown', 'pwdoliviabrown', 'path/to/profile-pic5.jpg', 0),
+    ('lexiyin@gmail.com', 'Lexi Yin', 'pwdlexiyin', 'path/to/profile-pic6.jpg', 0),
+    ('alexstanton@gmail.com', 'Alex Stanton', 'pwdalexstanton', 'path/to/profile-pic7.jpg', 0),
+    ('jeffintrone@gmail.com', 'Jeff Introne', 'pwdjeffintrone', 'path/to/profile-pic8.jpg', 0);
 
 
 
@@ -43,20 +43,20 @@ VALUES
     ('#fashion');
 
 -- Insert statements with fake timestamp data
-INSERT INTO posts (post_content, post_media, post_date, user_id)
+INSERT INTO posts (post_content, post_media, post_date, post_beliked, user_id)
 VALUES
-    ('Hello world!', 'path/to/media1.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 4),
-    ('Exciting news!', 'path/to/media2.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 5),
-    ('Check out this artwork!', 'path/to/media3.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 6),
-    ('New music release!', 'path/to/media4.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 7),
-    ('Fashion trends for summer', 'path/to/media5.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 8),
-    ('Amazing sunset!', 'path/to/media6.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 4),
-    ('Delicious food recipe!', 'path/to/media7.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 5),
-    ('Beautiful nature photography', 'path/to/media8.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 6),
-    ('Book recommendation: Must-read!', 'path/to/media9.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 7),
-    ('Travel destination: Paradise on Earth', 'path/to/media10.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 8),
-    ('Admin post', 'path/to/media11.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 2),
-    ('Manager post', 'path/to/media12.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 3);
+    ('Hello world!', 'path/to/media1.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 4),
+    ('Exciting news!', 'path/to/media2.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 5),
+    ('Check out this artwork!', 'path/to/media3.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 6),
+    ('New music release!', 'path/to/media4.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 7),
+    ('Fashion trends for summer', 'path/to/media5.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 8),
+    ('Amazing sunset!', 'path/to/media6.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 4),
+    ('Delicious food recipe!', 'path/to/media7.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 5),
+    ('Beautiful nature photography', 'path/to/media8.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 6),
+    ('Book recommendation: Must-read!', 'path/to/media9.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 7),
+    ('Travel destination: Paradise on Earth', 'path/to/media10.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 8),
+    ('Admin post', 'path/to/media11.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 2),
+    ('Manager post', 'path/to/media12.jpg', TIMESTAMP '2023-01-01' + (random() * INTERVAL '365 days'), 0, 3);
 
 -- Insert statements for post_hashtag
 INSERT INTO post_hashtag (post_id, hashtag_id)
@@ -87,3 +87,30 @@ VALUES
     (4, 10, TIMESTAMP '2022-10-01'),
     (5, 11, TIMESTAMP '2022-11-01'),
     (6, 12, TIMESTAMP '2022-12-01');
+
+-- upgrade data
+UPDATE posts
+SET post_beliked = COALESCE(
+    (
+        SELECT COUNT(*)
+        FROM likes
+        WHERE likes.post_id = posts.id
+    ),
+    0
+);
+
+UPDATE users
+SET user_beliked = COALESCE(
+    (
+    SELECT SUM(post_beliked)
+    FROM posts
+    WHERE posts.user_id = users.id
+    ),
+    0
+);
+
+ALTER TABLE posts
+ALTER COLUMN post_beliked SET DEFAULT 0;
+
+ALTER TABLE users
+ALTER COLUMN user_beliked SET DEFAULT 0;

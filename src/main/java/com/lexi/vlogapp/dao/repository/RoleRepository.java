@@ -1,4 +1,4 @@
-package com.lexi.vlogapp.repository;
+package com.lexi.vlogapp.dao.repository;
 
 import com.lexi.vlogapp.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

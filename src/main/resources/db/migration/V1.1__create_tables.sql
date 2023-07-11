@@ -26,9 +26,10 @@ CREATE TABLE post_hashtag (
 -- Table: posts
 CREATE TABLE posts (
     id BIGSERIAL  NOT NULL,
-    post_content text  NOT NULL,
+    post_content text,
     post_media varchar(255)  NOT NULL, -- path to media file
     post_date timestamp  NOT NULL,
+    post_beliked bigint DEFAULT 0,
     user_id bigint  NOT NULL,
     CONSTRAINT posts_pk PRIMARY KEY (id)
 );
@@ -39,7 +40,8 @@ CREATE TABLE users (
     user_email varchar(255)  NOT NULL,
     user_name varchar(255)  NOT NULL,
     user_password varchar(255)  NOT NULL,
-    user_avatar varchar(255)  NOT NULL, -- path to media file
+    user_avatar varchar(255), -- path to media file
+    user_beliked bigint DEFAULT 0,
     CONSTRAINT users_pk PRIMARY KEY (id)
 );
 

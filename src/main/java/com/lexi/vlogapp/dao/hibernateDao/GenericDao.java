@@ -1,4 +1,4 @@
-package com.lexi.vlogapp.dao;
+package com.lexi.vlogapp.dao.hibernateDao;
 
 import java.util.Optional;
 import java.util.Set;
