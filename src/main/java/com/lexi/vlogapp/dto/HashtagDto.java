@@ -1,28 +1,14 @@
-package com.lexi.vlogapp.entity;
+package com.lexi.vlogapp.dto;
 
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "hashtags")
-@NoArgsConstructor
-@AllArgsConstructor
-public class Hashtag {
+public class HashtagDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "hashtag_content")
     private String hashtagContent;
 
-    @ManyToMany(mappedBy = "hashtags", fetch = FetchType.LAZY)
-    private Set<Post> posts;
+    private Set<Long> postIds;
 
     //////////////////// Getter & Setter /////////////////////////////
     public Long getId() {
@@ -41,22 +27,21 @@ public class Hashtag {
         this.hashtagContent = hashtagContent;
     }
 
-    public Set<Post> getPosts() {
-        return posts;
+    public Set<Long> getPostIds() {
+        return postIds;
     }
 
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
+    public void setPostIds(Set<Long> postIds) {
+        this.postIds = postIds;
     }
 
     ////////////////////////// To String /////////////////////////////
+
     @Override
     public String toString() {
-        return "Hashtag{" +
+        return "HashtagDto{" +
                 "id=" + id +
                 ", hashtagContent='" + hashtagContent + '\'' +
                 '}';
     }
-
 }
-

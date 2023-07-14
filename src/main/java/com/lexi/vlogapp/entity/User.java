@@ -32,7 +32,7 @@ public class User {
     private String avatar;
 
     // mappedBy is to find the corresponding java variable
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private Set<Post> posts;
 
     @ManyToMany

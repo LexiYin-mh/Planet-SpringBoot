@@ -28,7 +28,7 @@ public class Post {
     @Column(name = "post_date")
     private Timestamp postDate;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "user_id") //, insertable = false, updatable = false)
     private User user;
 
@@ -85,6 +85,13 @@ public class Post {
         user.getPosts().add(this);
     }
 
+    public Set<Hashtag> getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(Set<Hashtag> hashtags) {
+        this.hashtags = hashtags;
+    }
 
     public Set<Like> getLikes() {
         return likes;
@@ -94,7 +101,18 @@ public class Post {
         this.likes = likes;
     }
 
-    ///////////////////////////////////////////////////////
+
+    public Long getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(Long likeNum) {
+        this.likeNum = likeNum;
+    }
+
+    //////////////////////////// To String ///////////////////////////////////////
+
+
     @Override
     public String toString() {
         return "Post{" +
@@ -102,8 +120,7 @@ public class Post {
                 ", postContent='" + postContent + '\'' +
                 ", postMedia='" + postMedia + '\'' +
                 ", postDate=" + postDate +
-                ", user=" + user +
+                ", likeNum=" + likeNum +
                 '}';
     }
-
 }

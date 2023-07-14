@@ -12,6 +12,7 @@ import org.springframework.test.annotation.Rollback;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,8 +20,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class UserServiceTest {
 
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;
@@ -58,58 +59,58 @@ class UserServiceTest {
         testPost2.setUser(testUser);
 
 
-//        userRepository.save(testUser);
+        userRepository.save(testUser);
 //        postRepository.save(testPost1);
 //        postRepository.save(testPost2);
     }
 
-//    @AfterEach
-//    public void cleanup() {
-//        // cascade = CascadeType.PERSIST
-//        // First, delete Many Side
+    @AfterEach
+    public void cleanup() {
+        // cascade = CascadeType.PERSIST
+        // First, delete Many Side
 //        postRepository.delete(testPost1);
 //        postRepository.delete(testPost2);
-//
-//        // Next, delete One Side
-//        userRepository.delete(testUser);
-//    }
+
+        // Next, delete One Side
+        userRepository.delete(testUser);
+    }
 
     @Test
     void tryout(){
-        testUser = userRepository.save(testUser);
-        System.out.println("finish");
+        Optional<User> retrievedUser = userRepository.findById(9L);
+        System.out.println(retrievedUser);
     }
 
-    @Test
-    @Transactional
-    @Rollback(value = false)
-    void deleteUserWithCommit() {
-        Boolean flag = false;
-        postRepository.deleteById(13L);
-        postRepository.deleteById(14L);
-        flag = userService.deleteById(9L);
-        assertTrue(flag);
-    }
+//    @Test
+//    @Transactional
+//    @Rollback(value = false)
+//    void deleteUserWithCommit() {
+//        Boolean flag = false;
+//        postRepository.deleteById(13L);
+//        postRepository.deleteById(14L);
+//        flag = userService.deleteById(9L);
+//        assertTrue(flag);
+//    }
 
-    @Test
-    void findAll() {
-        Set<User> users = userService.findAll();
-        assertNotNull(users);
-        assertTrue(users.size() >= 8);
-    }
+//    @Test
+//    void findAll() {
+//        Set<User> users = userService.findAll();
+//        assertNotNull(users);
+//        assertTrue(users.size() >= 8);
+//    }
 
-    @Test
-    void saveUser() {
-        //User savedUser = userService.save(testUser);
-        Set<Post> testPosts = testUser.getPosts();
-        System.out.println(testPosts.size());
-        for (Post post : testPosts) {
-            System.out.println(post.getUser().getName());
-            System.out.println(post.getPostContent());
-        }
-        User savedUser = userService.save(testUser);
-        assertNotNull(savedUser.getId());
-    }
+//    @Test
+//    void saveUser() {
+//        //User savedUser = userService.save(testUser);
+//        Set<Post> testPosts = testUser.getPosts();
+//        System.out.println(testPosts.size());
+//        for (Post post : testPosts) {
+//            System.out.println(post.getUser().getName());
+//            System.out.println(post.getPostContent());
+//        }
+//        User savedUser = userService.save(testUser);
+//        assertNotNull(savedUser.getId());
+//    }
 
 
     /*

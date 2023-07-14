@@ -1,9 +1,12 @@
 package com.lexi.vlogapp.Service;
 
 import com.lexi.vlogapp.dao.repository.LikeRepository;
+import com.lexi.vlogapp.entity.Like;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 public class LikeTest {
@@ -13,7 +16,14 @@ public class LikeTest {
 
     @Test
     void testCount(){
-        Long countPost = likeRepository.countByPost(3L);
-
+        Long countPost = likeRepository.countByPostId(3L);
+        System.out.println("=============" + countPost);
     }
+
+    @Test
+    void test(){
+        List<Like> likes = likeRepository.findAll();
+        System.out.println(likes.size());
+    }
+
 }
