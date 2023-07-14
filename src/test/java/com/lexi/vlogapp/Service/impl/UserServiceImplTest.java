@@ -18,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -169,6 +169,80 @@ class UserServiceImplTest {
         assertTrue(result);
     }
 
+    @Test
+    void getByIdTest_happy_path() {
 
+        // create mock data
+        UserDto mockedUserDto =  mock(UserDto.class);
+        User mockedUser = mock(User.class);
+
+        // Set behavior of mocks
+        when(mockedUserRepository.findById(anyLong())).thenReturn(Optional.of(mockedUser));
+        when(mapper.convertUserToDto(mockedUser)).thenReturn(mockedUserDto);
+
+        // Call method under test
+        UserDto result = userService.getById(100L);
+
+        // Verify interaction
+        verify(mockedUserRepository, times(1)).findById(anyLong());
+
+        assertEquals(mockedUserDto, result);
+
+    }
+
+    @Test
+    void getAll_test_usingSpy() {
+        // create mock data
+        UserDto mockedUserDtoOne =  mock(UserDto.class);
+        UserDto mockedUserDtoTwo =  mock(UserDto.class);
+
+        List<User> spyUserList = spy(ArrayList.class);
+        User mockedUserOne = mock(User.class);
+        User mockedUserTwo = mock(User.class);
+        spyUserList.add(mockedUserOne);
+        spyUserList.add(mockedUserTwo);
+
+        // Set behavior of mocks
+        when(mockedUserRepository.findAll()).thenReturn(spyUserList);
+        when(mapper.convertUserToDto(mockedUserOne)).thenReturn(mockedUserDtoOne);
+        when(mapper.convertUserToDto(mockedUserTwo)).thenReturn(mockedUserDtoTwo);
+
+        // Call the method under test
+        Set<UserDto> result = userService.getAll();
+
+        verify(mockedUserRepository, times(1)).findAll();
+        verify(mapper, times(2)).convertUserToDto(any());
+        assertEquals(2, result.size());
+    }
+
+
+    @Test
+    void getAll_test_usingMock_with_Iterator() {
+
+        // Create mock data
+        UserDto mockedUserDto = mock(UserDto.class);
+        User mockedUser = mock(User.class);
+
+        // Create a mock set of users
+        List<User> mockedUserList = mock(ArrayList.class);
+        Set<User> mockedUsers = mock(HashSet.class);
+
+        Iterator mockedIterator = mock(Iterator.class);
+
+        when(mockedUserRepository.findAll()).thenReturn(mockedUserList);
+
+        // Convert the list to a set
+        //Set<User> mockedUsers = new HashSet<>(mockedUserList);
+
+        when(mapper.convertUserToDto(any())).thenReturn(mockedUserDto);
+        when(mockedUsers.iterator()).thenReturn(mockedIterator);
+        when(mockedIterator.hasNext()).thenReturn(true, true, false);
+        when(mockedIterator.next()).thenReturn(mockedUser);
+
+        Set<UserDto> result = userService.getAll();
+        // assertEquals(2, result.size());
+        verify(mapper, times(0)).convertUserToDto(any());
+
+    }
 
 }
