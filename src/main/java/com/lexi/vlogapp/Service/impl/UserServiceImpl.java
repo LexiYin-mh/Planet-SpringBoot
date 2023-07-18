@@ -4,19 +4,17 @@ import com.lexi.vlogapp.Service.UserService;
 import com.lexi.vlogapp.dao.repository.RoleRepository;
 import com.lexi.vlogapp.dao.repository.UserRepository;
 import com.lexi.vlogapp.dto.UserDto;
-import com.lexi.vlogapp.entity.LoginResult;
+import com.lexi.vlogapp.dto.LoginResult;
 import com.lexi.vlogapp.entity.Role;
 import com.lexi.vlogapp.entity.User;
+import com.lexi.vlogapp.exception.InvalidCredentialsException;
 import com.lexi.vlogapp.util.MapperUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -116,7 +114,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<UserDto> getAll() {
+
         Set<User> users = new HashSet<>(userRepository.findAll());
+
         Set<UserDto> userDtos = new HashSet<>();
         for (User user : users) {
             UserDto userDto = mapper.convertUserToDto(user);
@@ -125,50 +125,56 @@ public class UserServiceImpl implements UserService {
         return userDtos;
     }
 
-//    @Override
-//    public Set<User> getByName(String name) {
-//        Set<User> users = userRepository.findByName(name);
-//        if (users.isEmpty()) {
-//            logger.error("===== There is no user with name = {}", name);
-//        }
-//        return users;
-//    }
-//
-//    public Role getUserAndRolesByCredential(String userEmail, String userPassword) {
-//
-//        // verify user Login and get user
-//        LoginResult loginResult = verifyUserLogin(userEmail, userPassword);
-//        if (loginResult.isSuccess()) {
-//            // get user info and
-//            User user = loginResult.getUser();
-//            Set<Role> roles = user.getRoles();
-//        }
-//
-//        return null;
-//    }
-//
-//    public Set<Role> getRolesById(Long id) {
-//        Optional<User> userOpt = userRepository.findById(id);
-//        if (userOpt.isPresent()){
-//            User user = userOpt.get();
-//            Set<Role> roles = user.getRoles();
-//            return roles;
-//        } else {
-//            throw new NoSuchElementException("Could not find User with id = " + id);
-//        }
-//    }
-//
-//    @Override
-//    public LoginResult verifyUserLogin(String userEmail, String userPassword) {
-//        Boolean flag = false;
-//        User user = new User();
-//        Optional<User> userOpt = userRepository.findByEmail(userEmail);
-//        if(userOpt.isPresent()) {
-//            user = userOpt.get();
-//            flag = true;
-//        }
-//        return new LoginResult(flag, user);
-//    }
+    /*
+    This getAllUsers() method is only used for Mockito test using mock with iterator, and it would not be used in practical project.
+     */
+    @Override
+    public Set<UserDto> getAllUsers() {
+
+        Set<User> users = userRepository.findAllUsers();
+
+        Set<UserDto> userDtos = new HashSet<>();
+        for (User user : users) {
+            UserDto userDto = mapper.convertUserToDto(user);
+            userDtos.add(userDto);
+        }
+        return userDtos;
+    }
+
+    @Override
+    public Set<UserDto> getByName(String name) {
+        Set<User> users = userRepository.findByName(name);
+        Set<UserDto> userDtos = new HashSet<>();
+        for (User user : users) {
+            UserDto userDto = mapper.convertUserToDto(user);
+            userDtos.add(userDto);
+        }
+        return userDtos;
+    }
+
+    public UserDto getUserWithRolesByCredential(String userEmail, String userPassword) {
+
+        // verify user Login and get user
+        LoginResult loginResult = verifyUserLogin(userEmail, userPassword);
+
+        if (!loginResult.isSuccess())
+            throw new InvalidCredentialsException("UserEmail and Password are not matched.");
+
+        return loginResult.getUserDto();
+    }
+
+    @Override
+    public LoginResult verifyUserLogin(String userEmail, String userPassword) {
+        Boolean flag = false;
+        UserDto userDto = new UserDto();
+        Optional<User> userOpt = userRepository.findByEmail(userEmail);
+        if(userOpt.isPresent()) {
+            userDto = mapper.convertUserToDto(userOpt.get());
+            flag = true;
+        }
+        return new LoginResult(flag, userDto);
+    }
+
 
 
 }

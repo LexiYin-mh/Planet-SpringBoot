@@ -1,11 +1,7 @@
 package com.lexi.vlogapp.util;
 
-import com.lexi.vlogapp.dto.PostDto;
-import com.lexi.vlogapp.dto.RoleDto;
-import com.lexi.vlogapp.dto.UserDto;
-import com.lexi.vlogapp.entity.Post;
-import com.lexi.vlogapp.entity.Role;
-import com.lexi.vlogapp.entity.User;
+import com.lexi.vlogapp.dto.*;
+import com.lexi.vlogapp.entity.*;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -24,11 +20,11 @@ public class MapperUtil {
         userDto.setAvatar(user.getAvatar());
         userDto.setLikeNum(user.getLikeNum());
 
-        if (user.getRoles() != null) {
-            Set<RoleDto> roleDtos = convertRoleSetToDtoSet(user.getRoles());
-            userDto.setRoleDtos(roleDtos);
+        if (user.getRoles() == null) {
+            Set<RoleDto> roleDtos = new HashSet<>();
         }
-
+        Set<RoleDto> roleDtos = convertRoleSetToDtoSet(user.getRoles());
+        userDto.setRoleDtos(roleDtos);
         return userDto;
     }
 
@@ -42,11 +38,11 @@ public class MapperUtil {
         user.setAvatar(userDto.getAvatar());
         user.setLikeNum(userDto.getLikeNum());
 
-        if (userDto.getRoleDtos() != null) {
-            Set<Role> roles = convertRoleDtoSetToEntitySet(userDto.getRoleDtos());
-            user.setRoles(roles);
+        if (userDto.getRoleDtos() == null) {
+            Set<Role> roles = new HashSet<>();
         }
-
+        Set<Role> roles = convertRoleDtoSetToEntitySet(userDto.getRoleDtos());
+        user.setRoles(roles);
         return user;
     }
 
@@ -93,4 +89,125 @@ public class MapperUtil {
 
         return role;
     }
+
+    public PostDto convertPostToDto(Post post) {
+
+        PostDto postDto = new PostDto();
+
+        postDto.setId(post.getId());
+        postDto.setPostContent(post.getPostContent());
+        postDto.setPostMedia(post.getPostMedia());
+        postDto.setPostDate(post.getPostDate());
+        postDto.setLikeNum(post.getLikeNum());
+
+        UserDto userDto = convertUserToDto(post.getUser());
+        postDto.setUserDto(userDto);
+
+        if (post.getHashtags() == null) {
+            Set<HashtagDto> hashtagDtos = new HashSet<>();
+        }
+
+        Set<HashtagDto> hashtagDtos = convertHashtagSetToHashtagDtoSet(post.getHashtags());
+        postDto.setHashtagDtos(hashtagDtos);
+
+        return postDto;
+    }
+
+    private Set<HashtagDto> convertHashtagSetToHashtagDtoSet(Set<Hashtag> hashtags) {
+
+        Set<HashtagDto> hashtagDtos = new HashSet<>();
+
+        for (Hashtag hashtag : hashtags) {
+            HashtagDto hashtagDto = convertHashtagToDto(hashtag);
+            hashtagDtos.add(hashtagDto);
+        }
+
+        return hashtagDtos;
+    }
+
+    public Post convertPostDtoToEntity(PostDto postDto) {
+
+        Post post = new Post();
+
+        post.setId(postDto.getId());
+        post.setPostContent(postDto.getPostContent());
+        post.setPostMedia(postDto.getPostMedia());
+        post.setPostDate(postDto.getPostDate());
+        post.setLikeNum(postDto.getLikeNum());
+
+        User user = convertUserDtoToEntity(postDto.getUserDto());
+        post.setUser(user);
+
+        if (postDto.getHashtagDtos() != null) {
+            Set<Hashtag> hashtags = new HashSet<>();
+        }
+        Set<Hashtag> hashtags = convertHashtagDtoSetToEntitySet(postDto.getHashtagDtos());
+        post.setHashtags(hashtags);
+
+        return post;
+    }
+
+    private Set<Hashtag> convertHashtagDtoSetToEntitySet(Set<HashtagDto> hashtagDtos) {
+
+        Set<Hashtag> hashtags = new HashSet<>();
+
+        for (HashtagDto hashtagDto : hashtagDtos) {
+            Hashtag hashtag = convertHashtagDtoToEntity(hashtagDto);
+            hashtags.add(hashtag);
+        }
+
+        return hashtags;
+    }
+
+
+    public HashtagDto convertHashtagToDto(Hashtag hashtag) {
+
+        HashtagDto hashtagDto = new HashtagDto();
+
+        hashtagDto.setId(hashtag.getId());
+        hashtagDto.setHashtagContent(hashtag.getHashtagContent());
+
+        return hashtagDto;
+    }
+
+    public Hashtag convertHashtagDtoToEntity(HashtagDto hashtagDto) {
+
+        Hashtag hashtag = new Hashtag();
+
+        hashtag.setId(hashtagDto.getId());
+        hashtag.setHashtagContent(hashtagDto.getHashtagContent());
+
+        return hashtag;
+
+    }
+
+    public LikeDto convertLikeToDto(Like like) {
+
+        LikeDto likeDto = new LikeDto();
+
+        likeDto.setId(like.getId());
+        likeDto.setLikeDate(like.getLikeDate());
+        likeDto.setUser(like.getUser());
+        likeDto.setPost(like.getPost());
+
+        return likeDto;
+    }
+
+    public Like convertLikeDtoToEntity(LikeDto likeDto) {
+
+        Like like = new Like();
+
+        like.setId(likeDto.getId());
+        like.setLikeDate(likeDto.getLikeDate());
+        like.setUser(likeDto.getUser());
+        like.setPost(likeDto.getPost());
+
+        return like;
+    }
+
+
+
+
+
+
 }

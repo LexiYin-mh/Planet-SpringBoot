@@ -215,7 +215,10 @@ class UserServiceImplTest {
         assertEquals(2, result.size());
     }
 
-
+    /*
+    This piece is used for testing mock with iterator.
+    getAllUsers() or findAllUsers() does not work.
+     */
     @Test
     void getAll_test_usingMock_with_Iterator() {
 
@@ -224,24 +227,20 @@ class UserServiceImplTest {
         User mockedUser = mock(User.class);
 
         // Create a mock set of users
-        List<User> mockedUserList = mock(ArrayList.class);
         Set<User> mockedUsers = mock(HashSet.class);
 
         Iterator mockedIterator = mock(Iterator.class);
 
-        when(mockedUserRepository.findAll()).thenReturn(mockedUserList);
-
-        // Convert the list to a set
-        //Set<User> mockedUsers = new HashSet<>(mockedUserList);
+        when(mockedUserRepository.findAllUsers()).thenReturn(mockedUsers);
 
         when(mapper.convertUserToDto(any())).thenReturn(mockedUserDto);
         when(mockedUsers.iterator()).thenReturn(mockedIterator);
-        when(mockedIterator.hasNext()).thenReturn(true, true, false);
+        when(mockedIterator.hasNext()).thenReturn(true, true, true, false);
         when(mockedIterator.next()).thenReturn(mockedUser);
 
-        Set<UserDto> result = userService.getAll();
-        // assertEquals(2, result.size());
-        verify(mapper, times(0)).convertUserToDto(any());
+        Set<UserDto> result = userService.getAllUsers();
+        assertEquals(1, result.size());
+        verify(mapper, times(3)).convertUserToDto(any());
 
     }
 

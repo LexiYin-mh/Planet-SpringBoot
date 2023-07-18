@@ -5,11 +5,11 @@ import java.util.Set;
 
 public interface CrudService<T, ID> {
 
-    T create(T entity);
+    T create(T Dto);
 
-    T update(T entity);
+    T update(T Dto);
 
-    Boolean delete(T entity);
+    Boolean delete(T Dto);
 
     Boolean deleteById(Long id);
 

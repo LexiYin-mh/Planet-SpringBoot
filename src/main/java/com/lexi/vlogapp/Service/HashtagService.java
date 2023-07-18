@@ -1,12 +1,17 @@
 package com.lexi.vlogapp.Service;
 
-import com.lexi.vlogapp.entity.Hashtag;
-import com.lexi.vlogapp.entity.Post;
+import com.lexi.vlogapp.dto.HashtagDto;
+import com.lexi.vlogapp.dto.PostDto;
+
 
 import java.util.Set;
 
-public interface HashtagService extends CrudService<Hashtag, Long> {
+public interface HashtagService extends CrudService<HashtagDto, Long> {
 
-    Set<Post> getHashtagPosts(Long hashtagId);
+    Boolean deleteByHashtagContent(String hashtagContent);
+
+    HashtagDto getByHashtagContent(String hashtagContent);
+
+
 
 }

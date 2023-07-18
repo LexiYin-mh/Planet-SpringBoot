@@ -1,6 +1,7 @@
 package com.lexi.vlogapp.dto;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 public class PostDto {
@@ -15,9 +16,9 @@ public class PostDto {
 
     private Long likeNum;
 
-    private UserDto user;
+    private UserDto userDto;
 
-    private Set<Long> hashtagIds;
+    private Set<HashtagDto> hashtagDtos = new HashSet<>();
 
     ////////////////////////////Getter & Setter////////////////////////////////////
 
@@ -62,24 +63,23 @@ public class PostDto {
         this.likeNum = likeNum;
     }
 
-    public UserDto getUser() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public void setUser(UserDto user) {
-        this.user = user;
+    public void setUserDto(UserDto user) {
+        this.userDto = user;
     }
 
-    public Set<Long> getHashtagIds() {
-        return hashtagIds;
+    public Set<HashtagDto> getHashtagDtos() {
+        return hashtagDtos;
     }
 
-    public void setHashtagIds(Set<Long> hashtagIds) {
-        this.hashtagIds = hashtagIds;
+    public void setHashtagDtos(Set<HashtagDto> hashtagDtos) {
+        this.hashtagDtos = hashtagDtos;
     }
 
     //////////////////////////// To String ///////////////////////////////////////
-
 
     @Override
     public String toString() {
@@ -92,4 +92,17 @@ public class PostDto {
                 '}';
     }
 
+
+//    @Override
+//    public String toString() {
+//        return "PostDto{" +
+//                "id=" + id +
+//                ", postContent='" + postContent + '\'' +
+//                ", postMedia='" + postMedia + '\'' +
+//                ", postDate=" + postDate +
+//                ", likeNum=" + likeNum +
+//                ", userDto=" + userDto +
+//                ", hashtagDtos=" + hashtagDtos +
+//                '}';
+//    }
 }

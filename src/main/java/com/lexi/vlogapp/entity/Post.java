@@ -110,8 +110,12 @@ public class Post {
         this.likeNum = likeNum;
     }
 
-    //////////////////////////// To String ///////////////////////////////////////
+    public void removeHashtag(Hashtag hashtag) {
+        this.getHashtags().remove(hashtag);
+        hashtag.getPosts().remove(this);
+    }
 
+    //////////////////////////// To String ///////////////////////////////////////
 
     @Override
     public String toString() {
@@ -123,4 +127,19 @@ public class Post {
                 ", likeNum=" + likeNum +
                 '}';
     }
+
+
+//    @Override
+//    public String toString() {
+//        return "Post{" +
+//                "id=" + id +
+//                ", postContent='" + postContent + '\'' +
+//                ", postMedia='" + postMedia + '\'' +
+//                ", postDate=" + postDate +
+//                ", user=" + user +
+//                ", hashtags=" + hashtags +
+//                ", likes=" + likes +
+//                ", likeNum=" + likeNum +
+//                '}';
+//    }
 }

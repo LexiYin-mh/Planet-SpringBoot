@@ -49,6 +49,11 @@ public class Hashtag {
         this.posts = posts;
     }
 
+    public void removePost(Post post){
+        this.getPosts().remove(post);
+        post.getHashtags().remove(this);
+    }
+
     ////////////////////////// To String /////////////////////////////
     @Override
     public String toString() {

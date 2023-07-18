@@ -36,11 +36,11 @@ VALUES
 -- Insert statements for hashtags
 INSERT INTO hashtags (hashtag_content)
 VALUES
-    ('#technology'),
-    ('#programming'),
-    ('#art'),
-    ('#music'),
-    ('#fashion');
+    ('technology'),
+    ('programming'),
+    ('art'),
+    ('music'),
+    ('fashion');
 
 -- Insert statements with fake timestamp data
 INSERT INTO posts (post_content, post_media, post_date, post_beliked, user_id)

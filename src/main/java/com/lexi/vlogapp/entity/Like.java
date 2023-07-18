@@ -28,7 +28,7 @@ public class Like {
     @JoinColumn(name="post_id", nullable=false)
     private Post post;
 
-    // Getters and Setters
+    /////////////////////////// Getters and Setters ///////////////////////////
     public Long getId() {
         return id;
     }
