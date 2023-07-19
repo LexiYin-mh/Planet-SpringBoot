@@ -65,6 +65,11 @@ public class MapperUtil {
 
         roleDto.setId(role.getId());
         roleDto.setName(role.getName());
+        roleDto.setAllowedResources(role.getAllowedResources());
+        roleDto.setAllowedCreate(role.isAllowedCreateFlag());
+        roleDto.setAllowedRead(role.isAllowedReadFlag());
+        roleDto.setAllowedUpdate(role.isAllowedUpdateFlag());
+        roleDto.setAllowedDelete(role.isAllowedDeleteFlag());
 
         return roleDto;
     }
@@ -86,6 +91,11 @@ public class MapperUtil {
 
         role.setId(roleDto.getId());
         role.setName(roleDto.getName());
+        role.setAllowedResources(roleDto.getAllowedResources());
+        role.setAllowedCreateFlag(roleDto.isAllowedCreate());
+        role.setAllowedReadFlag(roleDto.isAllowedRead());
+        role.setAllowedUpdateFlag(roleDto.isAllowedUpdate());
+        role.setAllowedDeleteFlag(roleDto.isAllowedDelete());
 
         return role;
     }
