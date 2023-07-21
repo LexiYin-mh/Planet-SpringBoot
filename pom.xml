@@ -107,6 +107,7 @@
 
 	<build>
 		<finalName>vlogapp</finalName>
+
 		<plugins>
 
 			<plugin>

@@ -139,6 +139,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String allowedResources = findAllowedResourcesUsingHttpMethodValueWithClaims(claims, httpMethodValue);
         String[] allowedResourcesArray = allowedResources.split(",");
         for(String eachAllowedResources: allowedResourcesArray){
+            eachAllowedResources = removeExternalApiPrefix(eachAllowedResources);
             logger.info("==========, requestUri = {}, eachAllowedResource={}", requestUri, eachAllowedResources);
             if(requestUri.trim().toLowerCase().startsWith(eachAllowedResources.trim().toLowerCase())){
                 isAuthorized = true;
@@ -146,6 +147,13 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
         return isAuthorized;
+    }
+
+    private String removeExternalApiPrefix(String apiPath) {
+        if (apiPath.contains(AUTH_URI_EXTERNAL)) {
+            apiPath = apiPath.replace(AUTH_URI_EXTERNAL, "");
+        }
+        return apiPath;
     }
 
     private String findAllowedResourcesUsingHttpMethodValueWithClaims(Claims claims, String httpMethodValue) {

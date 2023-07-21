@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getById(Long id) throws NoSuchElementException {
+    public UserDto getById(Long id) {
         Optional<User> userOpt = userRepository.findById(id);
         if (userOpt.isPresent()){
             UserDto userDto = mapper.convertUserToDto(userOpt.get());
