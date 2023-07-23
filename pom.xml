@@ -9,13 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lexi</groupId>
-	<artifactId>vlogapp</artifactId>
+	<artifactId>planet</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<!-- For Deploying To Tomcat, default is jar	-->
 	<packaging>war</packaging>
 
-	<name>vlogapp</name>
+	<name>planet</name>
 	<description>Vlog project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -106,7 +106,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>vlogapp</finalName>
+		<finalName>planet</finalName>
 
 		<plugins>
 
@@ -121,7 +121,7 @@
 				<version>9.16.0</version>
 				<configuration>
 					<driver>org.postgresql.Driver</driver>
-					<url>jdbc:postgresql://localhost:5433/vlogappDB</url>
+					<url>jdbc:postgresql://localhost:5433/planet-DB</url>
 					<user>lexiyin</user>
 					<password>pwd123</password>
 					<schemas>

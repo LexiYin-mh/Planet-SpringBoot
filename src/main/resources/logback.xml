@@ -1,7 +1,7 @@
 <configuration>
 
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n" />
-    <property name="APP_LOG_ROOT" value="./logs/vlogapp"/>
+    <property name="APP_LOG_ROOT" value="./logs/planet"/>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -55,7 +55,7 @@
         </triggeringPolicy>
     </appender>
 
-    <logger name="com.lexi.vlogapp" level="TRACE" additivity="false">
+    <logger name="com.lexi.planet" level="TRACE" additivity="false">
         <appender-ref ref="applicationLog" />
         <appender-ref ref="console" />
     </logger>
