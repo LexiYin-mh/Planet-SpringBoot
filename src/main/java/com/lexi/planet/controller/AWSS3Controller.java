@@ -1,6 +1,7 @@
 package com.lexi.planet.controller;
 
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.services.autoscalingplans.model.ObjectNotFoundException;
 import com.lexi.planet.Service.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.print.Pageable;
 import java.io.IOException;
 
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
@@ -40,12 +42,14 @@ public class AWSS3Controller {
     }
 
     @RequestMapping(value = "/presignedurl", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> generatePresignedURL(@RequestParam(value = "key") String key){
-        ResponseEntity<Object> responseEntity = null;
-        String presignedURL = s3Service.generatePresignedURL(bucketName, key, HttpMethod.GET.toString());
+    public ResponseEntity<Object> generatePresignedURL(@RequestParam(value = "objectKey") String objectKey){
+
+        String presignedURL = s3Service.generatePresignedURL(bucketName, objectKey, HttpMethod.GET.toString());
         logger.info("The presignedURL is = {}", presignedURL );
-        responseEntity = new ResponseEntity<>(presignedURL, HttpStatus.OK);
-        return responseEntity;
+        if (presignedURL == null) {
+            return new ResponseEntity<Object>(presignedURL, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Object>(presignedURL, HttpStatus.OK);
     }
 
 

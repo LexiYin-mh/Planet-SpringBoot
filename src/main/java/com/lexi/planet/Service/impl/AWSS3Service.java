@@ -2,6 +2,7 @@ package com.lexi.planet.Service.impl;
 
 
 import com.amazonaws.HttpMethod;
+import com.amazonaws.services.applicationautoscaling.model.ObjectNotFoundException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
@@ -84,6 +85,11 @@ public class AWSS3Service implements StorageService {
         Date expirationDateTime = new Date();
         expirationDateTime.setTime(System.currentTimeMillis() + EXPIRATION_TIME);
 
+        // Check existence
+        if (!isObjectExist(bucketName, objectKey)) {
+            return null;
+        }
+
         // Generate the Pre-signed URL
         GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, objectKey)
                 .withMethod(HttpMethod.GET)
@@ -91,4 +97,10 @@ public class AWSS3Service implements StorageService {
         URL url = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
         return url.toString();
     }
+
+    @Override
+    public Boolean isObjectExist(String bucketName, String objectKey) {
+        return s3Client.doesObjectExist(bucketName, objectKey);
+    }
+
 }

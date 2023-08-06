@@ -5,6 +5,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 instructions/
+src/main/resources/application-dev.properties
 
 ### ignore log files###
 *.log

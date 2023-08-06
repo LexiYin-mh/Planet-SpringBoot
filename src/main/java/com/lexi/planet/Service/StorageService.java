@@ -14,4 +14,6 @@ public interface StorageService {
     void deleteFile(String bucketName, String key);
 
     String generatePresignedURL(String bucketName, String objectKey, String httpMethodString);
+
+    Boolean isObjectExist(String bucketName, String objectKey);
 }
