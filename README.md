@@ -30,6 +30,7 @@ This is a web application involves MVC design pattern and allows users to regist
 
 
 ## Code Structure
+---
 This is a multi-model project managed by Maven. 
 
 ```plaintext
@@ -63,6 +64,7 @@ This is a multi-model project managed by Maven.
 
 ## Configure Local Environment
 ---
+
 ### 1. Setup local database
 Refer to [postgres docker image](https://hub.docker.com/_/postgres) for environment option.
 ```bash
@@ -89,7 +91,7 @@ spring.datasource.password=${password}
 
 In our project, we utilize Maven's capability to handle different profiles. Specifically, we have two main profiles defined in our pom.xml: dev and prod. These profiles allow us to manage and segregate configurations based on the environment we're working in. Please refer to my application.properties `src/main/resources/application-prod.properties`
 
-```plaintext
+```bash
 #mvn clean package -Pdev    # for the development environment
 mvn clean package -Pprod   # for the production environment
 ```
@@ -107,3 +109,25 @@ mvn flyway:migrate
 refer to `src/main/resources/logback.xml`
 
 
+## Deploy and Production
+----
+
+### 1. Compile the project and run the rest
+```bash
+mvn compile
+mvn test
+```
+
+### 2. Package the app
+Refer [Apache Maven](https://maven.apache.org/plugins-archives/maven-surefire-plugin-2.12.4/examples/skipping-test.html) for more skipping options. 
+```bash
+mvn clean package -Pdev -DskipTests=true   # This command will bypass the test part in packaging
+```
+
+### 3. Deploy this project on Tomcat Server.
+Remember that environment variable must be set up. [This could be a good reference. ](https://howtoprogram.xyz/2020/05/11/apache-tomcat-how-to-set-up-environment-variables/)
+
+### 4. CICD
+1- Use `cp` to fetch `setenv.sh` and `.war` files to Ops folder. 
+2- Leverage Dockerfile for containerization. 
+3- Setup codepipeline.yaml. 
