@@ -1,5 +1,4 @@
 # VlogVerse-SpringBoot
----
 
 ## Overview
 Implemented RESTful APIs for social media web application to facilitate content sharing and user engagement.
@@ -30,7 +29,7 @@ This is a web application involves MVC design pattern and allows users to regist
 
 
 ## Code Structure
----
+
 This is a multi-model project managed by Maven. 
 
 ```plaintext
@@ -63,7 +62,7 @@ This is a multi-model project managed by Maven.
 
 
 ## Configure Local Environment
----
+
 
 ### 1. Setup local database
 Refer to [postgres docker image](https://hub.docker.com/_/postgres) for environment option.
@@ -110,7 +109,7 @@ refer to `src/main/resources/logback.xml`
 
 
 ## Deploy and Production
-----
+
 
 ### 1. Compile the project and run the rest
 ```bash
@@ -128,6 +127,6 @@ mvn clean package -Pdev -DskipTests=true   # This command will bypass the test p
 Remember that environment variable must be set up. [This could be a good reference. ](https://howtoprogram.xyz/2020/05/11/apache-tomcat-how-to-set-up-environment-variables/)
 
 ### 4. CICD
-1- Use `cp` to fetch `setenv.sh` and `.war` files to Ops folder. 
+1- Copy or Fetch `setenv.sh` and `.war` files to Ops folder. 
 2- Leverage Dockerfile for containerization. 
 3- Setup codepipeline.yaml. 
