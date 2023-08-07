@@ -1,10 +1,10 @@
-# VlogVerse-SpringBoot
+# Planet-SpringBoot
 
 ## Overview
 Implemented RESTful APIs for social media web application to facilitate content sharing and user engagement.
 
 ## Project Technical Overview
-This is a web application involves MVC design pattern and allows users to register accounts, search for multi-Media posts by hashtag and give a like. Frameworks and tools used includ Java, Spring Boot, Restful Web Services, Hibernate, Spring Data JPA, PostgreSQL, servlet, JWT, Git, Maven, Tomcat, Docker, and AWS (S3, RDS, Code Pipeline).
+This is a web application involves MVC design pattern and allows users to register accounts, search for multi-Media posts by hashtag and give a like. Frameworks and tools used includ **Java, Spring Boot, Restful Web Services, Hibernate, Spring Data JPA, PostgreSQL, servlet, JWT, Git, Maven, Tomcat, Docker, and AWS (S3, RDS, Code Pipeline).**
 
 ## Business Rules
 
@@ -127,6 +127,6 @@ mvn clean package -Pdev -DskipTests=true   # This command will bypass the test p
 Remember that environment variable must be set up. [This could be a good reference. ](https://howtoprogram.xyz/2020/05/11/apache-tomcat-how-to-set-up-environment-variables/)
 
 ### 4. CICD
-1- Copy or Fetch `setenv.sh` and `.war` files to Ops folder. 
-2- Leverage Dockerfile for containerization. 
-3- Setup codepipeline.yaml. 
+1- Copy or Fetch `setenv.sh` and `.war` files to Ops folder.        
+2- Leverage Dockerfile for containerization.         
+3- Setup codepipeline.yaml.            
